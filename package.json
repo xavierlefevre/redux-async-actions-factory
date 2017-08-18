@@ -1,0 +1,32 @@
+{
+  "name": "redux-enhancer",
+  "version": "1.0.0",
+  "description": "Automaticaly adds loading and error states to your API calls, and a reset store to each of yours Redux stores.",
+  "main": "index.js",
+  "author": "Xavier Lefèvre <xavier.lefevre@me.com>",
+  "license": "MIT",
+  "scripts": {
+    "test": "yarn test:flow && yarn test:lint && yarn test:unit",
+    "test:flow": "flow",
+    "test:unit": "jest",
+    "test:lint": "eslint ."
+  },
+  "dependencies": {
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "eslint": "^4.4.1",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-prettier": "^2.2.0",
+    "flow-bin": "^0.53.1",
+    "jest": "^20.0.4",
+    "prettier": "^1.5.3"
+  },
+  "jest": {
+    "cacheDirectory": "<rootDir>/jest/tmp"
+  }
+}

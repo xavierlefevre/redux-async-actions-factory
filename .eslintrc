@@ -1,0 +1,49 @@
+{
+  "extends": ["prettier"],
+  "parser": "babel-eslint",
+  "plugins": ["prettier", "flowtype"],
+  "globals": {
+    "__DEV__": true,
+    "__dirname": true,
+    "describe": true,
+    "expect": true,
+    "it": true,
+    "xit": true,
+    "beforeEach": true,
+    "jest": true
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true
+  },
+  "rules": {
+    "no-undef": "error",
+    "no-unused-vars": "error",
+    "no-else-return": "error",
+    "no-duplicate-imports": "off",
+    "no-mixed-operators": "off",
+    "class-methods-use-this": "off",
+    "flowtype/define-flow-type": "error",
+    "flowtype/use-flow-type": "error",
+    "import/prefer-default-export": "off",
+    "import/no-unresolved": "off",
+    "import/no-extraneous-dependencies": "off",
+    "import/extensions": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "trailingComma": "es5",
+        "singleQuote": true,
+        "bracketSpacing": true,
+        "tabWidth": 2,
+        "printWidth": 80
+      }
+    ]
+  },
+  "settings": {
+    "flowtype": {
+      "onlyFilesWithFlowAnnotation": false
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# node.js
+node_modules/
+
+# Tests
+jest/tmp
