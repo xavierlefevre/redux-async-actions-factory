@@ -21,7 +21,7 @@ describe('enhanceActionTypes', () => {
           RESET: `USER.REQUEST.SIGNUP.RESET`,
         },
       },
-      emptyStore: 'EMPTY_STORE',
+      resetStore: 'RESET_STORE',
     };
     const output = enhanceActionTypes('USER', ['LOGIN', 'SIGNUP']);
 
@@ -53,15 +53,15 @@ if the action is not known from the enhanceReducer`, () => {
     expect(output).toEqual(expectedOutput);
   });
 
-  it(`should reset the store with empty store`, () => {
+  it(`should reset the store with initialState: 0`, () => {
     const expectedOutput = {
-      empty: 0,
+      initialState: 0,
     };
 
     const storeName = 'MODULE';
-    const currentState = { full: Infinity };
-    const action = { type: 'EMPTY_STORE' };
-    const defaultState = { empty: 0 };
+    const currentState = { modifiedState: Infinity };
+    const action = { type: 'RESET_STORE' };
+    const defaultState = { initialState: 0 };
     const entityReducer = state => state;
 
     const output = enhanceReducer(

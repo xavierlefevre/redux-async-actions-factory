@@ -12,7 +12,7 @@ type enhancedActionNames = {
       RESET: string,
     },
   },
-  emptyStore: string,
+  resetStore: string,
 };
 
 export const enhanceActionTypes = (
@@ -42,13 +42,13 @@ export const enhanceActionTypes = (
 
   return {
     ...requestActionTypes,
-    emptyStore: 'EMPTY_STORE',
+    resetStore: 'RESET_STORE',
   };
 };
 
 // ACTION CREATORS
 export const enhanceActionCreators = () => ({
-  emptyStore: () => ({ type: 'EMPTY_STORE' }),
+  resetStore: () => ({ type: 'RESET_STORE' }),
 });
 
 // REDUCERS
@@ -96,7 +96,7 @@ export const enhanceReducer = (
     };
   }
 
-  if (action.type === 'EMPTY_STORE') return { ...initialState };
+  if (action.type === 'RESET_STORE') return { ...initialState };
 
   return reducer(enhancedState || state, action);
 };
