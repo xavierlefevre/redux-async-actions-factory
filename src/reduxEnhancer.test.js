@@ -34,6 +34,13 @@ describe('enhanceActionTypes', () => {
 });
 
 describe('enhanceActionCreators', () => {
+  const actionTypes = enhanceActionTypes(storeName, apiActionNames);
+  const actionCreators = enhanceActionCreators(
+    storeName,
+    apiActionNames,
+    actionTypes
+  );
+
   it('should automaticaly add the necessary actions creators for a request action', () => {
     const expectedOutput = {
       requestLoginStart: () => {},
@@ -44,14 +51,15 @@ describe('enhanceActionCreators', () => {
       requestSignupFailed: () => {},
       emptyStore: () => {},
     };
-    const actionTypes = enhanceActionTypes(storeName, apiActionNames);
-    const output = enhanceActionCreators(
-      storeName,
-      apiActionNames,
-      actionTypes
-    );
 
-    expect(Object.keys(output)).toEqual(Object.keys(expectedOutput));
+    expect(Object.keys(actionCreators)).toEqual(Object.keys(expectedOutput));
+  });
+
+  it('should create a start login action', () => {
+    const output = actionCreators.requestLoginStart();
+    const expectedOutput = { type: 'USER.REQUEST.LOGIN.START' };
+
+    expect(output).toEqual(expectedOutput);
   });
 });
 
@@ -213,6 +221,8 @@ if the action is not known from the enhanceReducer`, () => {
 });
 
 describe('enhanceSelectors', () => {
+  const selectors = enhanceSelectors(storeName, apiActionNames);
+
   it('should automaticaly add the necessary selectors for request actions', () => {
     const expectedOutput = {
       loginLoading: () => {},
@@ -220,8 +230,24 @@ describe('enhanceSelectors', () => {
       signupLoading: () => {},
       signupFailed: () => {},
     };
-    const output = enhanceSelectors(storeName, apiActionNames);
 
-    expect(Object.keys(output)).toEqual(Object.keys(expectedOutput));
+    expect(Object.keys(selectors)).toEqual(Object.keys(expectedOutput));
+  });
+
+  it('should select the loading state of login', () => {
+    const state = {
+      user: {
+        requests: {
+          LOGIN: {
+            loading: true,
+          },
+        },
+      },
+    };
+
+    const output = selectors.loginLoading(state);
+    const expectedOutput = true;
+
+    expect(output).toEqual(expectedOutput);
   });
 });
