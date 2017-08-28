@@ -9,12 +9,12 @@ import {
 const storeName = 'USER';
 const asyncActionsNames = ['SIGNUP'];
 
-const actionTypes = {
+export const actionTypes = {
   ...enhanceActionTypes(storeName, asyncActionsNames),
   LOGOUT: 'LOGOUT',
 };
 
-const actionCreators = {
+export const actionCreators = {
   ...enhanceActionCreators(),
   startSignup: signupInfo => ({
     type: actionTypes.REQUEST.SIGNUP.START,
@@ -41,10 +41,10 @@ const basicReducer = (state, action) => {
   }
 };
 
-const reducer = (state = defaultState, action) =>
+export const reducer = (state = defaultState, action) =>
   enhanceReducer(storeName, state, action, defaultState, basicReducer);
 
-const selectors = {
+export const selectors = {
   ...enhanceSelectors(storeName, asyncActionsNames),
   token: state => state.user.token,
 };
