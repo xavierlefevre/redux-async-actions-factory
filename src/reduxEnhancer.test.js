@@ -1,8 +1,12 @@
 import {
-  enhanceReducer,
   enhanceActionTypes,
+  enhanceActionCreators,
+  enhanceReducer,
   enhanceSelectors,
 } from './reduxEnhancer';
+
+const storeName = 'USER';
+const apiActionNames = ['LOGIN', 'SIGNUP'];
 
 describe('enhanceActionTypes', () => {
   it('should automaticaly add the necessary actions types for a request action', () => {
@@ -23,9 +27,31 @@ describe('enhanceActionTypes', () => {
       },
       resetStore: 'RESET_STORE',
     };
-    const output = enhanceActionTypes('USER', ['LOGIN', 'SIGNUP']);
+    const output = enhanceActionTypes(storeName, apiActionNames);
 
     expect(output).toEqual(expectedOutput);
+  });
+});
+
+describe('enhanceActionCreators', () => {
+  it('should automaticaly add the necessary actions creators for a request action', () => {
+    const expectedOutput = {
+      requestLoginStart: () => {},
+      requestLoginSuccess: () => {},
+      requestLoginFailed: () => {},
+      requestSignupStart: () => {},
+      requestSignupSuccess: () => {},
+      requestSignupFailed: () => {},
+      emptyStore: () => {},
+    };
+    const actionTypes = enhanceActionTypes(storeName, apiActionNames);
+    const output = enhanceActionCreators(
+      storeName,
+      apiActionNames,
+      actionTypes
+    );
+
+    expect(Object.keys(output)).toEqual(Object.keys(expectedOutput));
   });
 });
 
@@ -36,7 +62,6 @@ if the action is not known from the enhanceReducer`, () => {
       trophies: ['yeah'],
     };
 
-    const storeName = 'USER';
     const currentState = { trophies: ['yeah'] };
     const action = { type: 'USER.TROPHIES.UNLOCK' };
     const defaultState = {};
@@ -85,7 +110,6 @@ if the action is not known from the enhanceReducer`, () => {
       },
     };
 
-    const storeName = 'USER';
     const currentState = {};
     const action = { type: 'USER.REQUEST.LOGIN.START' };
     const defaultState = {};
@@ -112,7 +136,6 @@ if the action is not known from the enhanceReducer`, () => {
       },
     };
 
-    const storeName = 'USER';
     const currentState = {};
     const action = { type: 'USER.REQUEST.LOGIN.SUCCESS' };
     const defaultState = {};
@@ -139,7 +162,6 @@ if the action is not known from the enhanceReducer`, () => {
       },
     };
 
-    const storeName = 'USER';
     const currentState = {};
     const action = { type: 'USER.REQUEST.LOGIN.FAILED' };
     const defaultState = {};
@@ -166,7 +188,6 @@ if the action is not known from the enhanceReducer`, () => {
       },
     };
 
-    const storeName = 'USER';
     const currentState = {
       requests: {
         LOGIN: {
@@ -199,7 +220,7 @@ describe('enhanceSelectors', () => {
       signupLoading: () => {},
       signupFailed: () => {},
     };
-    const output = enhanceSelectors('user', ['LOGIN', 'SIGNUP']);
+    const output = enhanceSelectors(storeName, apiActionNames);
 
     expect(Object.keys(output)).toEqual(Object.keys(expectedOutput));
   });
