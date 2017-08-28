@@ -1,8 +1,13 @@
 # Redux Enhancer
 
 ## What is it?
+Tired of always copy pasting a lot of redux boilerplate everytime you create a new store, or handle an async action?
+- Automaticaly generate the state of your async actions!
+- Automaticaly generate reset store
 
-Enhance your redux modules with this package:
+## But in depth?
+
+Enhance your redux modules:
 - Automaticaly handling the start, loading, error or success, and reset Redux phases of your async calls
   - Four action types will be automaticaly created such as:
     ```javascript
@@ -70,17 +75,14 @@ Enhance your redux modules with this package:
   ...
   ```
 
-4. Enhance your action creators:
+4. Enhance your action creators by passing the `storeName`, `apiActionsNames` and `actionTypes`:
   ```javascript
   ...
   const actionCreators = {
-    ...enhanceActionCreators(),
-    startSignup: signupInfo => ({
+    ...enhanceActionCreators(storeName, asyncActionsNames, actionTypes),
+    requestSignupStart: signupInfo => ({
       type: actionTypes.REQUEST.SIGNUP.START,
       payload: signupInfo,
-    }),
-    resetSignup: () => ({
-      type: actionTypes.REQUEST.SIGNUP.RESET,
     }),
   };
   ...

@@ -15,13 +15,10 @@ export const actionTypes = {
 };
 
 export const actionCreators = {
-  ...enhanceActionCreators(),
-  startSignup: signupInfo => ({
+  ...enhanceActionCreators(storeName, asyncActionsNames, actionTypes),
+  requestSignupStart: signupInfo => ({
     type: actionTypes.REQUEST.SIGNUP.START,
     payload: signupInfo,
-  }),
-  resetSignup: () => ({
-    type: actionTypes.REQUEST.SIGNUP.RESET,
   }),
 };
 
