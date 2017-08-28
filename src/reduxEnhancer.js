@@ -47,9 +47,41 @@ export const enhanceActionTypes = (
 };
 
 // ACTION CREATORS
-export const enhanceActionCreators = () => ({
-  resetStore: () => ({ type: 'RESET_STORE' }),
-});
+export const enhanceActionCreators = (
+  storeName?: string,
+  requestActionTitles?: string[],
+  actionTypes?: *
+): { [string]: Function, emptyStore: Function } => {
+  let requestActionCreators = {};
+
+  if (requestActionTitles && actionTypes && actionTypes.REQUEST)
+    requestActionCreators = requestActionTitles.reduce(
+      (reducedObject, actionTitle) => {
+        const camelCaseActionTitle = lodash.camelCase(actionTitle);
+        const pascalCaseActionTitle =
+          camelCaseActionTitle[0].toUpperCase() + camelCaseActionTitle.slice(1);
+
+        return {
+          ...reducedObject,
+          [`request${pascalCaseActionTitle}Start`]: () => ({
+            type: actionTypes && actionTypes.REQUEST[actionTitle].START,
+          }),
+          [`request${pascalCaseActionTitle}Success`]: () => ({
+            type: actionTypes && actionTypes.REQUEST[actionTitle].SUCCESS,
+          }),
+          [`request${pascalCaseActionTitle}Failed`]: () => ({
+            type: actionTypes && actionTypes.REQUEST[actionTitle].FAILED,
+          }),
+        };
+      },
+      {}
+    );
+
+  return {
+    ...requestActionCreators,
+    emptyStore: () => ({ type: 'RESET_STORE' }),
+  };
+};
 
 // REDUCERS
 export const enhanceDefaultState = (requestActionTitles: string[]) =>
@@ -110,9 +142,15 @@ export const enhanceSelectors = (
     (reducedObject, actionTitle) => ({
       ...reducedObject,
       [`${lodash.camelCase(actionTitle)}Loading`]: (state: *) =>
-        lodash.get(state, `${storeName}.requests.${actionTitle}.loading`),
+        lodash.get(
+          state,
+          `${lodash.camelCase(storeName)}.requests.${actionTitle}.loading`
+        ),
       [`${lodash.camelCase(actionTitle)}Failed`]: (state: *) =>
-        lodash.get(state, `${storeName}.requests.${actionTitle}.failed`),
+        lodash.get(
+          state,
+          `${lodash.camelCase(storeName)}.requests.${actionTitle}.failed`
+        ),
     }),
     {}
   );
