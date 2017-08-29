@@ -1,0 +1,25 @@
+# Doc and readme
+documentation
+readme.md
+
+# Tests
+jest
+
+# IDE config
+.vscode
+
+# Git
+.gitignore
+
+# Babel
+.babelrc
+
+# Linter
+.eslintrc
+
+# Flow
+.flowconfig
+
+# CI
+.travis.yml
+
