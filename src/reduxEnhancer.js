@@ -72,6 +72,9 @@ export const enhanceActionCreators = (
           [`request${pascalCaseActionTitle}Failed`]: () => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].FAILED,
           }),
+          [`request${pascalCaseActionTitle}Reset`]: () => ({
+            type: actionTypes && actionTypes.REQUEST[actionTitle].RESET,
+          }),
         };
       },
       {}
