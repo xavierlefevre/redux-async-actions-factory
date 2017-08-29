@@ -1,6 +1,6 @@
 {
   "name": "redux-enhancer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Automaticaly adds loading and error states to your API calls, and a reset store to each of yours Redux stores.",
   "main": "index.js",
   "author": "Xavier Lefèvre <xavier.lefevre@me.com>",
