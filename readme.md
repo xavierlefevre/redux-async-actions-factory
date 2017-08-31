@@ -8,6 +8,9 @@ Tired of always copy pasting a lot of redux boilerplate everytime you create a n
 ## But in depth?
 
 Enhance your redux modules:
+
+![Async Call Redux Steps Schema](./documentation/async-call-redux-steps-schema.png)
+
 - Automaticaly handling the start, loading, error or success, and reset Redux phases of your async calls
   - Four action types will be automaticaly created such as:
     ```javascript
