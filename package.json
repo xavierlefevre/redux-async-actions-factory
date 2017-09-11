@@ -9,6 +9,17 @@
     "type": "git",
     "url": "https://github.com/bamlab/redux-enhancer"
   },
+  "keywords": [
+    "react",
+    "reactjs",
+    "react-native",
+    "redux",
+    "store",
+    "request",
+    "async",
+    "loading",
+    "error"
+  ],
   "scripts": {
     "test": "yarn test:flow && yarn test:lint && yarn test:unit",
     "test:flow": "flow",
