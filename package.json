@@ -5,6 +5,10 @@
   "main": "index.js",
   "author": "Xavier Lefèvre <xavier.lefevre@me.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bamlab/redux-enhancer"
+  },
   "scripts": {
     "test": "yarn test:flow && yarn test:lint && yarn test:unit",
     "test:flow": "flow",
