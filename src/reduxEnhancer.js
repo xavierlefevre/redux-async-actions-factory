@@ -63,11 +63,13 @@ export const enhanceActionCreators = (
 
         return {
           ...reducedObject,
-          [`request${pascalCaseActionTitle}Start`]: () => ({
+          [`request${pascalCaseActionTitle}Start`]: (payload) => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].START,
+            payload
           }),
-          [`request${pascalCaseActionTitle}Success`]: () => ({
+          [`request${pascalCaseActionTitle}Success`]: (payload) => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].SUCCESS,
+            payload
           }),
           [`request${pascalCaseActionTitle}Failed`]: () => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].FAILED,
