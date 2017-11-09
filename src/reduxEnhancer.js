@@ -63,16 +63,18 @@ export const enhanceActionCreators = (
 
         return {
           ...reducedObject,
-          [`request${pascalCaseActionTitle}Start`]: (payload) => ({
+          [`request${pascalCaseActionTitle}Start`]: payload => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].START,
-            payload
+            payload,
           }),
-          [`request${pascalCaseActionTitle}Success`]: (payload) => ({
+          [`request${pascalCaseActionTitle}Success`]: payload => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].SUCCESS,
-            payload
+            payload,
           }),
-          [`request${pascalCaseActionTitle}Failed`]: () => ({
+          [`request${pascalCaseActionTitle}Failed`]: payload => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].FAILED,
+            payload,
+            error: true,
           }),
           [`request${pascalCaseActionTitle}Reset`]: () => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].RESET,
@@ -105,7 +107,7 @@ export const enhanceDefaultState = (requestActionTitles: string[]) =>
   );
 
 const parseErrorIfExists = action => {
-  const errorText = lodash.get(action, 'payload.err.response.text');
+  const errorText = lodash.get(action, 'payload.response.text');
   return errorText ? JSON.parse(errorText) : false;
 };
 
