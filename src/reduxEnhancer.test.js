@@ -46,9 +46,11 @@ describe('enhanceActionCreators', () => {
       requestLoginStart: () => {},
       requestLoginSuccess: () => {},
       requestLoginFailed: () => {},
+      requestLoginReset: () => {},
       requestSignupStart: () => {},
       requestSignupSuccess: () => {},
       requestSignupFailed: () => {},
+      requestSignupReset: () => {},
       emptyStore: () => {},
     };
 

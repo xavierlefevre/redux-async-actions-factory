@@ -4,5 +4,6 @@
   "flow.enabled": true,
   "flow.useNPMPackagedFlow": true,
   "flow.runOnEdit": true,
-  "javascript.validate.enable": false
+  "javascript.validate.enable": false,
+  "git.ignoreLimitWarning": true
 }
