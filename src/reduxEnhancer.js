@@ -130,21 +130,21 @@ export const enhanceDefaultState = (requestActionTitles: string[]): StateType =>
     { requests: {} }
   );
 
-const parseErrorIfExists = (action: ActionType<*>): string | boolean => {
+function parseErrorIfExists<T>(action: ActionType<T>): string | boolean {
   const errorText = lodash.get(action, 'payload.response.text');
   return errorText ? JSON.parse(errorText) : false;
-};
+}
 
-export const enhanceReducer = (
+export function enhanceReducer<T>(
   storeName: string,
   state: StateType,
-  action: ActionType<*>,
+  action: ActionType<T>,
   initialState: StateType,
-  reducer: (state: StateType, action: ActionType<*>) => void
+  reducer: (state: StateType, action: ActionType<T>) => void
 ): {
   ...Object,
   requests: { [string]: RequestStatusType },
-} => {
+} {
   let enhancedState;
 
   const requestActionType = action.type.match(/(.*).REQUEST\.(.*)\.(.*)/);
@@ -165,7 +165,7 @@ export const enhanceReducer = (
   if (action.type === 'RESET_STORE') return { ...initialState };
 
   return reducer(enhancedState || state, action);
-};
+}
 
 // SELECTORS
 export const enhanceSelectors = (
