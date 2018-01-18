@@ -15,15 +15,19 @@ type enhancedActionNames = {
   resetStore: string,
 };
 
-type ActionType = {
+type ActionType<T> = {
   type: string,
-  payload: Object,
+  payload: T,
   routeName?: string,
 };
 
 type RequestStatusType = {
   loading: boolean,
   failed: boolean,
+};
+
+type StateType = {
+  requests: { [string]: RequestStatusType },
 };
 
 export const enhanceActionTypes = (
@@ -111,9 +115,7 @@ export const enhanceActionCreators = (
 };
 
 // REDUCERS
-export const enhanceDefaultState = (
-  requestActionTitles: string[]
-): { requests: { [string]: RequestStatusType } } =>
+export const enhanceDefaultState = (requestActionTitles: string[]): StateType =>
   requestActionTitles.reduce(
     (reducedObject, actionTitle) => ({
       ...reducedObject,
@@ -128,19 +130,17 @@ export const enhanceDefaultState = (
     { requests: {} }
   );
 
-const parseErrorIfExists = (action: ActionType): string | boolean => {
+const parseErrorIfExists = (action: ActionType<*>): string | boolean => {
   const errorText = lodash.get(action, 'payload.response.text');
   return errorText ? JSON.parse(errorText) : false;
 };
 
 export const enhanceReducer = (
   storeName: string,
-  state: {
-    requests: { [string]: RequestStatusType },
-  },
-  action: ActionType,
-  initialState: Object,
-  reducer: (state: Object, action: ActionType) => void
+  state: StateType,
+  action: ActionType<*>,
+  initialState: StateType,
+  reducer: (state: StateType, action: ActionType<*>) => void
 ): {
   ...Object,
   requests: { [string]: RequestStatusType },
