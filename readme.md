@@ -195,9 +195,3 @@ function* signupSaga(action) {
 * Publish to NPM now: `npm publish`
 * Tada! After a few minutes, you will see the new version on NPM:
   https://www.npmjs.com/package/redux-enhancer
-
-## Todo
-
-1. Rename the package to make it more explicit and less generic
-2. Check the licence
-3. Find a way to flow type the automaticaly created actions and selectors
