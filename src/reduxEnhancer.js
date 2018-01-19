@@ -15,6 +15,21 @@ type enhancedActionNames = {
   resetStore: string,
 };
 
+type ActionType<T> = {
+  type: string,
+  payload: T,
+  routeName?: string,
+};
+
+type RequestStatusType = {
+  loading: boolean,
+  failed: boolean,
+};
+
+type StateType = {
+  requests: { [string]: RequestStatusType },
+};
+
 export const enhanceActionTypes = (
   storeName?: string,
   requestActionTitles?: string[]
@@ -50,28 +65,37 @@ export const enhanceActionTypes = (
 export const enhanceActionCreators = (
   storeName?: string,
   requestActionTitles?: string[],
-  actionTypes?: *
+  actionTypes?: {
+    REQUEST: {
+      [string]: {
+        START: string,
+        SUCCESS: string,
+        FAILED: string,
+        RESET: string,
+      },
+    },
+  }
 ): { [string]: Function, emptyStore: Function } => {
   let requestActionCreators = {};
 
   if (requestActionTitles && actionTypes && actionTypes.REQUEST)
     requestActionCreators = requestActionTitles.reduce(
       (reducedObject, actionTitle) => {
-        const camelCaseActionTitle = lodash.camelCase(actionTitle);
+        const camelCaseActionTitle: string = lodash.camelCase(actionTitle);
         const pascalCaseActionTitle =
           camelCaseActionTitle[0].toUpperCase() + camelCaseActionTitle.slice(1);
 
         return {
           ...reducedObject,
-          [`request${pascalCaseActionTitle}Start`]: payload => ({
+          [`request${pascalCaseActionTitle}Start`]: (payload: Object) => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].START,
             payload,
           }),
-          [`request${pascalCaseActionTitle}Success`]: payload => ({
+          [`request${pascalCaseActionTitle}Success`]: (payload: Object) => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].SUCCESS,
             payload,
           }),
-          [`request${pascalCaseActionTitle}Failed`]: payload => ({
+          [`request${pascalCaseActionTitle}Failed`]: (payload: Object) => ({
             type: actionTypes && actionTypes.REQUEST[actionTitle].FAILED,
             payload,
             error: true,
@@ -91,7 +115,7 @@ export const enhanceActionCreators = (
 };
 
 // REDUCERS
-export const enhanceDefaultState = (requestActionTitles: string[]) =>
+export const enhanceDefaultState = (requestActionTitles: string[]): StateType =>
   requestActionTitles.reduce(
     (reducedObject, actionTitle) => ({
       ...reducedObject,
@@ -106,18 +130,21 @@ export const enhanceDefaultState = (requestActionTitles: string[]) =>
     { requests: {} }
   );
 
-const parseErrorIfExists = action => {
+function parseErrorIfExists<T>(action: ActionType<T>): string | boolean {
   const errorText = lodash.get(action, 'payload.response.text');
   return errorText ? JSON.parse(errorText) : false;
-};
+}
 
-export const enhanceReducer = (
+export function enhanceReducer<T>(
   storeName: string,
-  state: any,
-  action: any,
-  initialState: any,
-  reducer: any
-) => {
+  state: StateType,
+  action: ActionType<T>,
+  initialState: StateType,
+  reducer: (state: StateType, action: ActionType<T>) => void
+): {
+  ...Object,
+  requests: { [string]: RequestStatusType },
+} {
   let enhancedState;
 
   const requestActionType = action.type.match(/(.*).REQUEST\.(.*)\.(.*)/);
@@ -138,7 +165,7 @@ export const enhanceReducer = (
   if (action.type === 'RESET_STORE') return { ...initialState };
 
   return reducer(enhancedState || state, action);
-};
+}
 
 // SELECTORS
 export const enhanceSelectors = (
