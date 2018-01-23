@@ -1,4 +1,4 @@
-# Redux Enhancer
+# Redux Async Actions Factory
 
 ## What is it?
 
