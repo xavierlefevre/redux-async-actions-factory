@@ -4,7 +4,7 @@ import {
   enhanceDefaultState,
   enhanceReducer,
   enhanceSelectors,
-} from 'redux-enhancer';
+} from 'redux-async-actions-factory';
 
 const storeName = 'USER';
 const asyncActionsNames = ['SIGNUP'];

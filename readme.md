@@ -68,7 +68,7 @@ Enhance your redux modules:
 
 ```javascript
 import { enhanceActionTypes, enhanceActionCreators,
-  enhanceDefaultState, enhanceReducer, enhanceSelectors } from 'redux-enhancer';
+  enhanceDefaultState, enhanceReducer, enhanceSelectors } from 'redux-async-actions-factory';
 ...
 ```
 
@@ -187,11 +187,11 @@ function* signupSaga(action) {
 
 ### Deployment
 
-* Bump the version and create a new commit
+* Bump the version in the package.json and create a new commit
 * Create a tag linked to the bump version commit: `git tag vX.Y.Z`
 * Check that your tag was added locally: `git tag -l`
 * Push your tag to Github: `git push origin vX.Y.Z`
 * Verify in Github that there is a new release, and add a release note
 * Publish to NPM now: `npm publish`
 * Tada! After a few minutes, you will see the new version on NPM:
-  https://www.npmjs.com/package/redux-enhancer
+  https://www.npmjs.com/package/redux-async-actions-factory
