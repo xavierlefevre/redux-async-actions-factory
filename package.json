@@ -22,7 +22,6 @@
   ],
   "scripts": {
     "build": "yarn babel src/index.js --out-file build/index.js",
-    "deploy": "yarn build && npm publish",
     "test": "yarn test:flow && yarn test:lint && yarn test:unit",
     "test:flow": "flow",
     "test:unit": "jest",

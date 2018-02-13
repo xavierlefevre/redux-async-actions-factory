@@ -192,6 +192,7 @@ function* signupSaga(action) {
 * Check that your tag was added locally: `git tag -l`
 * Push your tag to Github: `git push origin vX.Y.Z`
 * Verify in Github that there is a new release, and add a release note
+* Build the end JS file with: `yarn build`
 * Publish to NPM now: `npm publish`
 * Tada! After a few minutes, you will see the new version on NPM:
   https://www.npmjs.com/package/redux-async-actions-factory
