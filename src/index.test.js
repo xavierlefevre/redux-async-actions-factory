@@ -3,7 +3,7 @@ import {
   enhanceActionCreators,
   enhanceReducer,
   enhanceSelectors,
-} from './reduxEnhancer';
+} from '.';
 
 const storeName = 'USER';
 const apiActionNames = ['LOGIN', 'SIGNUP'];
